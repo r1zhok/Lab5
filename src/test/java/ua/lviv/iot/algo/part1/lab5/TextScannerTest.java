@@ -17,21 +17,34 @@ class TextScannerTest {
         textScanner = new TextScanner();
         expected = "summer_2022.png\nsummer_2022.gif\n";
         text = "Last summer I make my best photo, it calls summer_2022.png, on this photo I " +
-                "was young, haha, also I have gif it names summer_2022.gif and I have SUmmer_2022.jpeg and summer2022.png";
+                "was young, haha, also I have gif it names summer_2022.gif" +
+                " and I have SUmmer_2022.jpeg and summer2022.png";
         searchWord = "summer_2022";
     }
 
+    @Test
+    public void testScanEmptyText() {
+        assertEquals(null, textScanner.textScanner("", "summer_2022"));
+    }
 
     @Test
-    public void isSearchWordOrTextEmpty() {
+    public void testEmptySearchWord() {
+        assertEquals("There is no word to search", textScanner.textScanner(text, ""));
+    }
 
+    @Test
+    public void testScanEmptyTextAndSearchWord() {
         assertEquals(null, textScanner.textScanner("", ""));
     }
 
     @Test
-    public void isExpectedEqualsResult() {
-
+    public void testScanText() {
         assertEquals(expected, textScanner.textScanner(text, searchWord));
-        /*assertSame(expected, textScanner.textScanner(text, searchWord));*/
     }
+
+    @Test
+    public void testScanTextWithNoMatches() {
+        assertEquals(null, textScanner.textScanner(text, "October"));
+    }
+
 }
